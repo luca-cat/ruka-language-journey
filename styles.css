@@ -1,0 +1,44 @@
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+    background-color: #0d1117;
+
+}
+
+
+.avatar {
+    height: 300px;
+    width: 300px;
+    border-radius: 50% !important;
+}
+
+#bio-box{
+    padding:16px;
+    border:2px;
+    border-color: rgb(207, 207, 207);
+    border-style: solid;
+    width:300px;
+    margin:10px;
+}
+
+.titles{
+    font: weight 600px;
+    color: rgb(225, 135, 255);
+}
+
+.regular-text{
+    color: aliceblue;
+
+}
+
+.image-filter{
+    filter:grayscale()
+}
+
+#theme-switcher{
+    padding-left: 45px;
+
+}
