@@ -24,17 +24,25 @@ async function getTotalCards(action, param){
     return cardIds.length;
 }
 
+
+async function getNoteInformation(){
+    
+    const allCardIds = await ankiConnectAPI("findNotes",{query:"deck:sentencemining"});
+    const cardInfo = await ankiConnectAPI("notesInfo", {notes: allCardIds})
+
+    return cardInfo;
+}
+
+
 async function getTotalKanji(){
 
     let kanjiArray = [];    
 
-    const allCardIds = await ankiConnectAPI("findNotes",{query:"deck:sentencemining"});
+    const cardInfo = await getNoteInformation();
 
-    const cardInfo = await ankiConnectAPI("notesInfo", {notes: allCardIds})
-
-    for (let i = 0; i < allCardIds.length; i++){
+    for (let card of cardInfo){
         
-        let word = cardInfo[i].fields.Word.value;
+        let word = card.fields.Word.value;
         
         for (let letter of word){
 
@@ -42,7 +50,7 @@ async function getTotalKanji(){
             //uses wanakana library to check if the letter is Kana or not
             continue;
         }
-        else if (kanjiArray.includes(letter)){
+        if (kanjiArray.includes(letter)){
             continue;
         }
         else{
@@ -68,9 +76,19 @@ async function main(){
     const kanjiStat = document.getElementById("kanji-count");
     kanjiStat.textContent = totalKanjiCount;
 
-    let getRandomWord = () =>{
+    let getRandomWord = async () => {
         
+        const cardInfo = await getNoteInformation();
+
+        const cardAmount = cardInfo.length;
+        
+        let randomIndex = Math.floor(Math.random() * cardAmount);
+        return cardInfo[randomIndex].fields.Word.value;
+
     }
+    getRandomWord();
+
+    
 
 }
 main();
