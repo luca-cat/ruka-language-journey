@@ -52,14 +52,41 @@ async function getTotalKanji(){
         }
         if (kanjiArray.includes(letter)){
             continue;
+            //checks if letter is in array
         }
         else{
             kanjiArray.push(letter);
+            //adds argument to array
         }
     }
     }
     return kanjiArray.length;
     
+}
+
+async function getStreakCount(){
+    const apiResult = await ankiConnectAPI("getNumCardsReviewedByDay");
+    const reviews = new Map(apiResult);
+
+    //creates a map out of the api result
+
+    let streak = 0;
+    let currentDate = new Date();
+
+    while (true){
+        const dateStr = currentDate.toISOString().split("T")[0];
+        const count = reviews.get(dateStr);
+
+        if (!count){
+            break;
+        }
+
+        streak++;
+        currentDate.setDate(currentDate.getDate() - 1);
+    
+    }
+     
+    return streak;
 }
 
 async function main(){
@@ -88,7 +115,18 @@ async function main(){
     }
     getRandomWord();
 
+    let getNewCards = async () =>{
+        const newCards = await ankiConnectAPI("findCards", {query:"is:new"});
+        return newCards.length;
+    }
+    //creates arrow function that returns amount of new cards
     
+    const numberOfNewCards = await getNewCards()
+    const newCardsStat = document.getElementById("new-card-count");
+    newCardsStat.textContent = numberOfNewCards;
 
+    const currentStreak = await getStreakCount();
+    const streakStatistic = document.getElementById("streak");
+    streakStatistic.textContent = currentStreak;
 }
 main();

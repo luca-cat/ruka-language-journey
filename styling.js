@@ -20,5 +20,3 @@ themeSwitchButton.addEventListener("click", () =>{
 
 const pageBackground = document.querySelector('body');
 const textColour = document.getElementsByClassName('regular-text'); 
-
-

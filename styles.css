@@ -25,6 +25,13 @@ body {
     translate: translateY(1px);
 }
 
+.navigator-bar{
+    display: flex;
+    justify-content:center;
+    gap:50px;
+    transform: translateY(40px);
+}
+
 .titles{
     font: weight 600px;
     color: rgb(225, 135, 255);
@@ -42,13 +49,6 @@ body {
 #theme-switcher{
     padding-left: 45px;
 
-}
-
-.navigator-bar{
-    display: flex;
-    justify-content:center;
-    gap:50px;
-    transform: translateY(40px);
 }
 
 
@@ -98,3 +98,12 @@ body {
     color:rgb(78, 182, 54);
 }
 
+.outline{
+    position:absolute;
+    outline:auto;
+}
+
+
+.text-shadow{
+    text-shadow: 2px 2px #484b6a;
+}
